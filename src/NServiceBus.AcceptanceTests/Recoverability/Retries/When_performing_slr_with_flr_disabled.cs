@@ -17,16 +17,17 @@
                 .WithEndpoint<RetryEndpoint>(b => b
                     .When((session, ctx) => session.SendLocal(new MessageToBeRetried {Id = ctx.Id}))
                     .DoNotFailOnErrorMessages())
-                .Done(c => c.MessageRetried)
+                .Done(c => c.ReceiveCount >= 4)
                 .Run();
 
+            // initial receive + 3 retries
+            Assert.AreEqual(4, context.ReceiveCount);
             Assert.AreEqual("0", context.FLRetriesHeader);
         }
 
         class Context : ScenarioContext
         {
             public Guid Id { get; set; }
-            public bool MessageRetried => ReceiveCount == 2;
             public int ReceiveCount { get; set; }
             public string FLRetriesHeader { get; set; }
         }
@@ -55,11 +56,7 @@
                     if (testContext.Id == message.Id)
                     {
                         testContext.ReceiveCount++;
-
-                        if (testContext.ReceiveCount == 2)
-                        {
-                            testContext.FLRetriesHeader = context.MessageHeaders[Headers.FLRetries];
-                        }
+                        testContext.FLRetriesHeader = context.MessageHeaders[Headers.FLRetries];
 
                         throw new SimulatedException();
                     }
