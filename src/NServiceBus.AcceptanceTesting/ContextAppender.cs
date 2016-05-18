@@ -29,95 +29,95 @@
 
         public void Debug(string message)
         {
-            WriteToTrace(message, LogLevel.Debug);
+            Log(message, LogLevel.Debug);
         }
 
         public void Debug(string message, Exception exception)
         {
             AppendException(exception);
-            WriteToTrace(message, LogLevel.Debug);
+            Log(message, LogLevel.Debug);
         }
 
         public void DebugFormat(string format, params object[] args)
         {
             var fullMessage = string.Format(format, args);
-            WriteToTrace(fullMessage, LogLevel.Debug);
+            Log(fullMessage, LogLevel.Debug);
         }
 
         public void Info(string message)
         {
-            WriteToTrace(message, LogLevel.Info);
+            Log(message, LogLevel.Info);
         }
 
 
         public void Info(string message, Exception exception)
         {
             var fullMessage = $"{message} {exception}";
-            WriteToTrace(fullMessage, LogLevel.Info);
+            Log(fullMessage, LogLevel.Info);
             AppendException(exception);
         }
 
         public void InfoFormat(string format, params object[] args)
         {
             var fullMessage = string.Format(format, args);
-            WriteToTrace(fullMessage, LogLevel.Info);
+            Log(fullMessage, LogLevel.Info);
         }
 
         public void Warn(string message)
         {
-            WriteToTrace(message, LogLevel.Warn);
+            Log(message, LogLevel.Warn);
         }
 
         public void Warn(string message, Exception exception)
         {
             var fullMessage = $"{message} {exception}";
-            WriteToTrace(fullMessage, LogLevel.Warn);
+            Log(fullMessage, LogLevel.Warn);
             AppendException(exception);
         }
 
         public void WarnFormat(string format, params object[] args)
         {
             var fullMessage = string.Format(format, args);
-            WriteToTrace(fullMessage, LogLevel.Warn);
+            Log(fullMessage, LogLevel.Warn);
         }
 
         public void Error(string message)
         {
-            WriteToTrace(message, LogLevel.Error);
+            Log(message, LogLevel.Error);
         }
 
         public void Error(string message, Exception exception)
         {
             var fullMessage = $"{message} {exception}";
-            WriteToTrace(fullMessage, LogLevel.Error);
+            Log(fullMessage, LogLevel.Error);
             AppendException(exception);
         }
 
         public void ErrorFormat(string format, params object[] args)
         {
             var fullMessage = string.Format(format, args);
-            WriteToTrace(fullMessage, LogLevel.Error);
+            Log(fullMessage, LogLevel.Error);
         }
 
         public void Fatal(string message)
         {
-            WriteToTrace(message, LogLevel.Fatal);
+            Log(message, LogLevel.Fatal);
         }
 
         public void Fatal(string message, Exception exception)
         {
             var fullMessage = $"{message} {exception}";
-            WriteToTrace(fullMessage, LogLevel.Fatal);
+            Log(fullMessage, LogLevel.Fatal);
             AppendException(exception);
         }
 
         public void FatalFormat(string format, params object[] args)
         {
             var fullMessage = string.Format(format, args);
-            WriteToTrace(fullMessage, LogLevel.Fatal);
+            Log(fullMessage, LogLevel.Fatal);
         }
 
-        void WriteToTrace(string message, LogLevel messageSeverity)
+        void Log(string message, LogLevel messageSeverity)
         {
             if (level <= messageSeverity)
             {
